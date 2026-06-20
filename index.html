@@ -132,77 +132,30 @@
     <h1>🗂️ บอร์ดแจกสคริปต์อัตโนมัติ</h1>
 
     <div class="script-card">
-        <div class="script-title">1. สคริปต์ระบบ Whitelist (ล็อกชื่อไอดีจริง ตรงเป๊ะ 100%)</div>
-        <div class="script-desc">คำอธิบาย: ใช้สำหรับล็อกสคริปต์ของคุณให้รันได้เฉพาะรายชื่อไอดีจริงที่กำหนดไว้เท่านั้น ป้องกันคนอื่นขโมยไปใช้ ตรวจสอบพิมพ์ใหญ่พิมพ์เล็กแบบเข้มงวดสูงสุด และไม่สนชื่อ Display Name</div>
-        <div class="code-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/your-code/whitelist"))()</div>
-        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/your-code/whitelist\'))()')">📋 คัดลอกสคริปต์</button>
+        <div class="script-title">สคริปต์ Block Spin</div>
+        <div class="script-desc">สคริปต์เป็นของค่าย PIG HUB ผมเอามาเปลี่ยนชื่อและโลโก้</div>
+        <div class="code-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/By-TestHub/TESTHUB-Blockspin/refs/heads/main/lua"))()</div>
+        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet("https://raw.githubusercontent.com/By-TestHub/TESTHUB-Blockspin/refs/heads/main/lua"))()')">คัดลอกสคริปต์</button>
     </div>
 
     <div class="script-card">
         <div class="script-title">2. สคริปต์ Fly & Speed Hub (รวมฟังก์ชันบินเด็ด ๆ)</div>
         <div class="script-desc">คำอธิบาย: สคริปต์เปิดเมนูบินและปรับความเร็วตัวละครในเกม โหลดเร็ว ปลอดภัย และไม่ทำให้ระบบแมพค้าง (ลดอาการขึ้นหน้าจอ Gameplay Paused)</div>
         <div class="code-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/your-code/flyspeed"))()</div>
-        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/your-code/flyspeed\'))()')">📋 คัดลอกสคริปต์</button>
+        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/your-code/flyspeed\'))()')">คัดลอกสคริปต์</button>
     </div>
 
     <div class="script-card">
         <div class="script-title">3. สคริปต์ Auto Farm Blox Fruits</div>
         <div class="script-desc">คำอธิบาย: สคริปต์สำหรับฟาร์มเลเวลอัตโนมัติ เลือกเกาะ เลือกมอนสเตอร์ และทำเควสให้เองแบบเนียน ๆ รองรับตัวรันสคริปต์ทั้งในคอมพิวเตอร์และมือถือ</div>
         <div class="code-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/your-code/autofarm"))()</div>
-        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/your-code/autofarm\'))()')">📋 คัดลอกสคริปต์</button>
+        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/your-code/autofarm\'))()')">คัดลอกสคริปต์</button>
     </div>
 
 </div>
 
 <script>
-    // =======================================================
-    // 🔒 1. ระบบล็อกให้เข้าได้เฉพาะจากดิสคอร์ดเท่านั้น
-    // =======================================================
-    (function() {
-        const referrer = document.referrer.toLowerCase();
-        const isFromDiscord = referrer.includes("discord.com") || 
-                              referrer.includes("discordapp.com") || 
-                              referrer.includes("android-app://com.discord");
-
-        if (!isFromDiscord) {
-            // ❌ ถ้าไม่ได้กดมาจากดิสคอร์ด ให้เด้งหน้าจอขาวและแจ้งเตือนทันที
-            document.body.innerHTML = `
-                <div style="font-family: sans-serif; text-align: center; margin-top: 100px; color: #ff7b72; background-color: #0d1117; height: 100vh; padding-top: 50px;">
-                    <h2>❌ [TEST HUB SECURITY]</h2>
-                    <p style="font-size: 1.1rem;">ไม่อนุญาตให้เข้าใช้งานผ่านเบราว์เซอร์โดยตรง!</p>
-                    <p style="color: #8b949e;">กรุณากดเข้าลิงก์ผ่านช่องดิสคอร์ดที่กำหนดเท่านั้น (ID: 1517877069684674821)</p>
-                </div>
-            `;
-            window.stop(); // หยุดการโหลดหน้าเว็บทั้งหมด
-        }
-    })();
-
-    // =======================================================
-    // 🛡️ 2. ระบบป้องกันการแอบดูซอร์สโค้ด และบล็อกการคัดลอก
-    // =======================================================
-
-    // บล็อกการคลิกขวาบนหน้าเว็บทั้งหมด
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-
-    // บล็อกปุ่มคีย์ลัดแอบดูซอส (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "F12" || 
-            (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) || 
-            (e.ctrlKey && e.key === "u")) {
-            e.preventDefault();
-        }
-    });
-
-    // บล็อกการลากคลุมดำบนหน้าเว็บ (ป้องกันคนมาลากไฮไลต์แล้วก๊อป)
-    document.addEventListener('selectstart', function(e) {
-        e.preventDefault();
-    });
-
-    // =======================================================
-    // ⚡ 3. ระบบกดคัดลอกสคริปต์สำหรับปุ่มกด
-    // =======================================================
+    // ⚡ ระบบกดคัดลอกอัตโนมัติ พร้อมเปลี่ยนข้อความบนปุ่ม
     function copyScript(button, text) {
         navigator.clipboard.writeText(text).then(() => {
             const originalText = button.innerHTML;
@@ -214,7 +167,7 @@
                 button.classList.remove("copied");
             }, 2000);
         }).catch(err => {
-            alert("ไม่สามารถคัดลอกได้ ระบบความปลอดภัยบล็อกไว้ชั่วคราวครับ");
+            alert("ไม่สามารถคัดลอกได้ กรุณาครอบคลุมดำก๊อปปี้เองชั่วคราวครับ");
         });
     }
 </script>
