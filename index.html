@@ -2,175 +2,69 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script VIP TEST HUB</title>
     <style>
-        /* 🎨 สไตล์การแต่งเว็บแนว Cyberpunk / Dark Mode */
-        body {
-            background-color: #0d1117;
-            color: #c9d1d9;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-        }
-
-        /* กล่องข้อความอาร์ตด้านบน */
-        pre {
-            background-color: #161b22;
-            color: #58a6ff;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #30363d;
-            overflow-x: auto;
-            font-size: 11px;
-            line-height: 1.2;
-            text-align: center;
-        }
-
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px #58a6ff;
-        }
-
-        /* 📦 กล่องสคริปต์แต่ละอัน */
-        .script-card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
-
-        .script-card:hover {
-            border-color: #58a6ff;
-            transform: translateY(-2px);
-        }
-
-        .script-title {
-            font-size: 1.4rem;
-            color: #58a6ff;
-            margin-top: 0;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .script-desc {
-            color: #8b949e;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
-        /* ช่องแสดงโค้ดสั้น ๆ */
-        .code-box {
-            background-color: #0d1117;
-            border: 1px solid #30363d;
-            padding: 12px;
-            border-radius: 6px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            color: #ff7b72;
-            overflow-x: auto;
-            white-space: nowrap;
-            margin-bottom: 15px;
-        }
-
-        /* 🔘 ปุ่มกดคัดลอก */
-        .copy-btn {
-            background-color: #238636;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
-        }
-
-        .copy-btn:hover {
-            background-color: #2ea043;
-        }
-
-        .copy-btn.copied {
-            background-color: #1f6feb;
-        }
-
-        /* ปรับแต่งให้แสดงผลสวยงามบนมือถือ */
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .script-title { font-size: 1.2rem; }
-            .script-desc { font-size: 0.85rem; }
-            .code-box { font-size: 0.8rem; }
-        }
+        body { margin: 0; font-family: 'Consolas', monospace; background: #1e1e1e; color: #fff; display: flex; height: 100vh; }
+        #sidebar { width: 200px; background: #252526; padding: 10px; }
+        #editor-container { flex-grow: 1; display: flex; flex-direction: column; }
+        .tab-bar { background: #2d2d2d; display: flex; padding: 5px; }
+        .tab { background: #333; padding: 5px 15px; margin-right: 5px; cursor: pointer; border-radius: 3px; }
+        .tab.active { background: #1e1e1e; border-top: 2px solid #007acc; }
+        textarea { flex-grow: 1; background: #1e1e1e; color: #d4d4d4; border: none; padding: 10px; font-size: 16px; resize: none; }
+        button { cursor: pointer; margin-top: 5px; width: 100%; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <pre>
- ______ ______ _____ _______    _    _ _    _ ____  
-|__   __|  ____/ ____|__   __|  | |  | | |  | |  _ \ 
-   | |  | |__ | (___    | |     | |__| | |  | | |_) |
-   | |  |  __| \___ \   | |     |  __  | |  | |  _ < 
-   | |  | |________) |  | |     | |  | | |__| | |_) |
-   |_|  |______|_____/  |_|     |_|  |_|\____/|____/ 
-    </pre>
+<div id="sidebar">
+    <h3>My Files</h3>
+    <button onclick="addTab()">+ เพิ่มแท็บใหม่</button>
+    <div id="file-list"></div>
+    <button onclick="clearAll()" style="background: red; color: white;">🗑️ ลบทั้งหมด</button>
+</div>
 
-    <h1>🗂️ บอร์ดแจกสคริปต์อัตโนมัติ</h1>
-
-    <div class="script-card">
-        <div class="script-title">สคริปต์ Block Spin</div>
-        <div class="script-desc">สคริปต์เป็นของค่าย PIG HUB ผมเอามาเปลี่ยนชื่อและโลโก้</div>
-        <div class="code-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/By-TestHub/TESTHUB-Blockspin/refs/heads/main/lua"))()</div>
-        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet("https://raw.githubusercontent.com/By-TestHub/TESTHUB-Blockspin/refs/heads/main/lua"))()')">คัดลอกสคริปต์</button>
-    </div>
-
-    <div class="script-card">
-        <div class="script-title">2. สคริปต์ Fly & Speed Hub (รวมฟังก์ชันบินเด็ด ๆ)</div>
-        <div class="script-desc">คำอธิบาย: สคริปต์เปิดเมนูบินและปรับความเร็วตัวละครในเกม โหลดเร็ว ปลอดภัย และไม่ทำให้ระบบแมพค้าง (ลดอาการขึ้นหน้าจอ Gameplay Paused)</div>
-        <div class="code-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/your-code/flyspeed"))()</div>
-        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/your-code/flyspeed\'))()')">คัดลอกสคริปต์</button>
-    </div>
-
-    <div class="script-card">
-        <div class="script-title">3. สคริปต์ Auto Farm Blox Fruits</div>
-        <div class="script-desc">คำอธิบาย: สคริปต์สำหรับฟาร์มเลเวลอัตโนมัติ เลือกเกาะ เลือกมอนสเตอร์ และทำเควสให้เองแบบเนียน ๆ รองรับตัวรันสคริปต์ทั้งในคอมพิวเตอร์และมือถือ</div>
-        <div class="code-box">loadstring(game:HttpGet("https://raw.githubusercontent.com/your-code/autofarm"))()</div>
-        <button class="copy-btn" onclick="copyScript(this, 'loadstring(game:HttpGet(\'https://raw.githubusercontent.com/your-code/autofarm\'))()')">คัดลอกสคริปต์</button>
-    </div>
-
+<div id="editor-container">
+    <div class="tab-bar" id="tab-bar"></div>
+    <textarea id="editor" placeholder="เขียนโค้ดที่นี่..."></textarea>
 </div>
 
 <script>
-    // ⚡ ระบบกดคัดลอกอัตโนมัติ พร้อมเปลี่ยนข้อความบนปุ่ม
-    function copyScript(button, text) {
-        navigator.clipboard.writeText(text).then(() => {
-            const originalText = button.innerHTML;
-            button.innerHTML = "✅ คัดลอกสำเร็จแล้ว!";
-            button.classList.add("copied");
-            
-            setTimeout(() => {
-                button.innerHTML = originalText;
-                button.classList.remove("copied");
-            }, 2000);
-        }).catch(err => {
-            alert("ไม่สามารถคัดลอกได้ กรุณาครอบคลุมดำก๊อปปี้เองชั่วคราวครับ");
+    let tabs = [{id: 1, name: "script.lua", content: ""}];
+    let activeTabId = 1;
+
+    function renderTabs() {
+        const tabBar = document.getElementById('tab-bar');
+        tabBar.innerHTML = '';
+        tabs.forEach(t => {
+            tabBar.innerHTML += `<div class="tab ${t.id === activeTabId ? 'active' : ''}" onclick="switchTab(${t.id})">
+                ${t.name} <span onclick="removeTab(${t.id})">×</span>
+            </div>`;
         });
     }
-</script>
 
+    function addTab() {
+        let newId = Date.now();
+        tabs.push({id: newId, name: "new_file.lua", content: ""});
+        switchTab(newId);
+    }
+
+    function removeTab(id) {
+        tabs = tabs.filter(t => t.id !== id);
+        if (tabs.length === 0) addTab();
+        switchTab(tabs[0].id);
+    }
+
+    function switchTab(id) {
+        activeTabId = id;
+        renderTabs();
+    }
+
+    function clearAll() {
+        if(confirm("ลบทั้งหมดแน่ใจนะ?")) {
+            document.getElementById('editor').value = "";
+        }
+    }
+
+    renderTabs();
+</script>
 </body>
 </html>
